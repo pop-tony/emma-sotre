@@ -13,7 +13,7 @@ export default function NavBar() {
   const location = useLocation();
 
   const navLinks = [
-    { href: "/#about", label: "Home" },
+    { href: "/", label: "Home" },
     { href: "/shop", label: "Shop" },
     { href: "/orders", label: "Orders" },
   ];

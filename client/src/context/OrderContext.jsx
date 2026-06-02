@@ -26,6 +26,7 @@ export function OrderProvider({ children }) {
         const promises = orderIds.map(async (orderId) => {
           try {
             const res = await axios.get(`${backendUrl}/order/i-data?orderId=${orderId}`);
+            console.log(res.data)
             return res.data.success? res.data.data : null;
           } catch (error) {
             console.error(`Failed to fetch order ${orderId}:`, error);

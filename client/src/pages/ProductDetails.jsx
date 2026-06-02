@@ -70,7 +70,7 @@ export default function ProductDetail() {
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
         <button
           onClick={() => navigate('/')}
-          className="cursor-pointer mb-6 flex items-center gap-2 text-sm hover:text-rose-500"
+          className="cursor-pointer m-5 mb-6 flex items-center gap-2 text-sm hover:text-rose-500"
         >
           <ChevronLeft className="h-4 w-4" />
           Back
@@ -140,7 +140,7 @@ export default function ProductDetail() {
                     <button
                       key={color}
                       onClick={() => setSelectedColor(color)}
-                      className={`h-10 w-10 rounded-full border-2 transition ${
+                      className={`cursor-pointer h-10 w-10 rounded-full border-2 transition ${
                         selectedColor === color
                         ? 'border-black ring-2 ring-black ring-offset-2 dark:border-white dark:ring-white'
                           : 'border-zinc-300 dark:border-zinc-700'
@@ -160,7 +160,7 @@ export default function ProductDetail() {
                   <span className="text-sm font-semibold">Size</span>
                   <button
                     onClick={() => setShowSizeGuide(true)}
-                    className="text-xs underline hover:text-rose-500"
+                    className="cursor-pointer text-xs underline hover:text-rose-500"
                   >
                     Size Guide
                   </button>
@@ -170,7 +170,7 @@ export default function ProductDetail() {
                     <button
                       key={size}
                       onClick={() => setSelectedSize(size)}
-                      className={`rounded-lg border-2 py-3 text-sm font-semibold transition ${
+                      className={`cursor-pointer rounded-lg border-2 py-3 text-sm font-semibold transition ${
                         selectedSize === size
                         ? 'border-black bg-black text-white dark:border-white dark:bg-white dark:text-black'
                           : 'border-zinc-300 hover:border-black dark:border-zinc-700 dark:hover:border-white'
@@ -208,13 +208,13 @@ export default function ProductDetail() {
               <button
                 onClick={handleAddToCart}
                 disabled={sizes.length > 0 &&!selectedSize}
-                className="flex-1 rounded-full bg-black py-4 text-sm font-semibold text-white transition hover:bg-neutral-800 disabled:cursor-not-allowed disabled:bg-zinc-300 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
+                className="cursor-pointer flex-1 rounded-full bg-black py-4 text-sm font-semibold text-white transition hover:bg-neutral-800 disabled:cursor-not-allowed disabled:bg-zinc-300 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
               >
                 {sizes.length > 0 &&!selectedSize? 'Select Size' : 'Add to Cart'}
               </button>
               <button
                 onClick={() => setIsWishlisted(!isWishlisted)}
-                className="rounded-full border-2 border-zinc-300 p-4 transition hover:border-black dark:border-zinc-700 dark:hover:border-white"
+                className="cursor-pointer rounded-full border-2 border-zinc-300 p-4 transition hover:border-black dark:border-zinc-700 dark:hover:border-white"
               >
                 <Heart
                   className={`h-5 w-5 ${isWishlisted? 'fill-rose-500 text-rose-500' : ''}`}

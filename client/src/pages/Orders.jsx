@@ -77,7 +77,7 @@ const OrderCard = ({ order }) => {
     day: 'numeric', month: 'short', year: 'numeric'
   });
 
-  const firstItem = order.items?.[0] || {};
+  const firstItem = order.items?.[0] || order;
   const itemCount = order.items?.length || 1;
 
   return (

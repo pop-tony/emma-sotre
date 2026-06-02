@@ -11,6 +11,9 @@ const ordersShema = new mongoose.Schema({
     total:{type: Number, required: true},
     paymentRef:{type: String, required: true},
     status: {type: String, default: "order made"},
+    color:{type: String, required: true},
+    image:{type: String, required: true},
+    size:{type: String, required: true}
 },{timestamps: true},)
 
 const orderAModel = mongoose.models.emmaorders || mongoose.model('emmaorders', ordersShema);

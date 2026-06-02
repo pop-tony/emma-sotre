@@ -71,10 +71,14 @@ export default function Cart() {
 
     const handlePaymentSuccess = async (response) => {
       try {
-        await createOrder(response.reference, checkoutItem);
-        toast.success(`Payment complete! Ref: ${response.reference}`);
-        setOrderRef(response.reference);
-        setCheckoutStep('success');
+        const placeOrder = await createOrder(response.reference, checkoutItem);
+        if(placeOrder){
+          toast.success(`Payment complete! Ref: ${response.reference}`);
+          setOrderRef(response.reference);
+          setCheckoutStep('success');
+        }else{
+          toast.error('Payment succeeded but order save failed');
+        }
       } catch (err) {
         toast.error('Payment succeeded but order save failed');
         console.error(err);
@@ -128,16 +132,20 @@ export default function Cart() {
       const order = await axios.post(`${backendUrl}/order/create-order`, { orderData });
       if (order.data.success) {
         toast.success("Order placed successfully!");
+        console.log(order.data)
         addOrder(order.data.data);
         removeFromCart(item.cartItemId);
+        return true;
       } else {
         toast.error("Order saved locally. Contact support with ref: " + reference);
         console.log(order.data)
+        return false;
       }
     } catch (error) {
       toast.error("Order saved locally. Contact support with ref: " + reference);
       console.error(error);
       removeFromCart(item.cartItemId);
+      return false;
     }
   };
 

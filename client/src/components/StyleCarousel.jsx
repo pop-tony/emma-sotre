@@ -1,5 +1,6 @@
 // src/components/StyleCarousel.jsx
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const styleLooks = [
   {
@@ -7,27 +8,31 @@ const styleLooks = [
     name: "Zara A.",
     handle: "@zara.styles",
     quote: "This linen set is everything. Dress it up or down — I've worn it 5 ways already.",
-    image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400"
+    image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600",
+    productId: "linen-set-01" // optional: link to actual product
   },
   {
     id: 2,
     name: "Kwesi M.",
     handle: "@kwesi.fits",
     quote: "Quality is insane for the price. The oversized tee fits exactly like the photos.",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400"
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600",
+    productId: "tee-01"
   },
   {
     id: 3,
     name: "Naa D.",
     handle: "@naa.daily",
     quote: "Finally found trousers that actually fit my waist AND length. Running back for more colors.",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400"
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600",
+    productId: "trousers-01"
   },
 ];
 
 export default function StyleCarousel() {
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isPaused) return;
@@ -37,6 +42,10 @@ export default function StyleCarousel() {
     return () => clearInterval(timer);
   }, [isPaused]);
 
+  const handleImageClick = (productId) => {
+    if (productId) navigate(`/product/${productId}`);
+  };
+
   return (
     <section className="bg-neutral-50 px-4 py-20 text-zinc-900 dark:bg-zinc-950 dark:text-white">
       <div
@@ -44,10 +53,13 @@ export default function StyleCarousel() {
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >
-        <h2 className="mb-4 text-4xl font-bold tracking-tight">Styled By You</h2>
-        <p className="mb-12 text-zinc-600 dark:text-zinc-400">Tag @yourbrand to be featured</p>
+        <p className="mb-2 text-sm uppercase tracking-[0.3em] text-rose-500">Community</p>
+        <h2 className="mb-4 text-4xl font-bold tracking-tight md:text-5xl">Styled By You</h2>
+        <p className="mb-12 text-zinc-600 dark:text-zinc-400">
+          Tag @emmastudio to be featured
+        </p>
 
-        <div className="relative h-80 overflow-hidden rounded-2xl">
+        <div className="relative h-80 overflow-hidden rounded-2xl sm:h-96">
           {styleLooks.map((t, idx) => (
             <div
               key={t.id}
@@ -59,30 +71,56 @@ export default function StyleCarousel() {
                 <img
                   src={t.image}
                   alt={t.name}
-                  className="h-full w-full object-cover"
+                  className={`h-full w-full object-cover ${
+                    t.productId? 'cursor-pointer hover:opacity-90' : ''
+                  }`}
+                  onClick={() => handleImageClick(t.productId)}
                 />
-                <div className="flex flex-col justify-center bg-white p-8 text-left dark:bg-zinc-900">
-                  <p className="mb-6 text-lg italic text-zinc-700 dark:text-zinc-200">"{t.quote}"</p>
-                  <p className="font-semibold">{t.name}</p>
-                  <p className="text-sm text-rose-500">{t.handle}</p>
+                <div className="flex flex-col justify-center bg-white p-6 text-left dark:bg-zinc-900 sm:p-8">
+                  <p className="mb-6 text-lg italic leading-relaxed text-zinc-700 dark:text-zinc-200">
+                    "{t.quote}"
+                  </p>
+                  <div>
+                    <p className="font-semibold">{t.name}</p>
+                    <p className="text-sm text-rose-500">{t.handle}</p>
+                  </div>
+                  {t.productId && (
+                    <button
+                      onClick={() => navigate(`/product/${t.productId}`)}
+                      className="mt-6 w-fit text-sm font-semibold underline hover:text-rose-500"
+                    >
+                      Shop this look →
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="mt-8 flex justify-center gap-3">
-          {styleLooks.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => setCurrent(idx)}
-              className={`h-2 w-8 rounded-full transition ${
-                idx === current? 'bg-black dark:bg-white' : 'bg-zinc-300 dark:bg-zinc-700'
-              }`}
-              aria-label={`Go to look ${idx + 1}`}
-            />
-          ))}
+        <div className="mt-8 flex items-center justify-center gap-4">
+          <div className="flex gap-3">
+            {styleLooks.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrent(idx)}
+                className={`h-2 rounded-full transition-all ${
+                  idx === current
+                 ? 'w-8 bg-black dark:bg-white'
+                    : 'w-2 bg-zinc-300 hover:bg-zinc-400 dark:bg-zinc-700 dark:hover:bg-zinc-600'
+                }`}
+                aria-label={`Go to look ${idx + 1}`}
+              />
+            ))}
+          </div>
         </div>
+
+        <button
+          onClick={() => window.open('https://instagram.com/emmastudio', '_blank')}
+          className="mt-12 rounded-full border border-zinc-300 px-8 py-3 text-sm font-semibold transition hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-800"
+        >
+          Share Your Style →
+        </button>
       </div>
     </section>
   );

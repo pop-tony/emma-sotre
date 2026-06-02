@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
@@ -45,6 +46,39 @@ export const Admin = () => {
 
   // Mock data - replace with axios calls
   useEffect(() => {
+
+    const getOrders = async()=>{
+      const res = await axios.get(`${backendUrl}/order/data`);
+      if(res.data.success){
+        setOrders(res.data.orders)
+      }
+    }
+
+    const getSections = async()=>{
+      const res = await axios.get(`${backendUrl}/order/c-data`);
+      if(res.data.success){
+        setStyleSessions(res.data.consults)
+      }
+    }
+
+    const getCustomers = ()=>{
+      try {
+        const cus = [];
+        let id = 0;
+        orders.map((order)=>{
+          person = {_id: id, name: order.customerName, email: order.email, orders: '', totalSpent: '', lastOrder: ''}
+          cus.push(person);
+          id++;
+        })
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    //getOrders();
+    //getSections();
+    //getCustomers();
+
     setOrders([
       { _id: '1', itemName: 'Oversized Heavy Tee', customerName: 'Freddy Thompson', size: 'L', color: 'Black', status: 'paid', total: 140, createdAt: '2026-05-30T09:55:35.695Z' },
       { _id: '2', itemName: 'Cargo Parachute Pants', customerName: 'Ama Boateng', size: 'M', color: 'Olive', status: 'processing', total: 280, createdAt: '2026-05-30T10:15:00.000Z' },

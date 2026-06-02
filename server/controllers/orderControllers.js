@@ -13,7 +13,7 @@ export const createOrderA = async (req, res) => {
     const order = new orderModel({ clientName, email, phone, date, time, notes, serviceName, servicePrice });
     await order.save();
 
-    return res.json({ success: true, message: "Order successfully created" });
+    return res.json({ success: true, message: "Order successfully created", data: order._id });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ success: false, message: error.message });
@@ -32,7 +32,7 @@ export const createConsult = async (req, res) => {
     const consult = new consultModel({name, email, phone, message});
     await consult.save();
 
-    return res.json({ success: true, message: "Inquirery Sent" });
+    return res.json({ success: true, message: "Inquirery Sent", data: consult._id });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ success: false, message: error.message });
@@ -44,18 +44,18 @@ export const createOrder = async (req, res) => {
   try {
     const { customer, items, total, paymentRef, status } = req.body.orderData;
     const { name, email, phone, address } = customer;
-    const { price, quantity } = items[0];
+    const { price, quantity, color, size, image } = items[0];
     const customerName = name;
     const itemName = items[0].name
     // Validate required fields
-    if (!customerName || !email || !phone || !address || !itemName || !price || !quantity || !total || !paymentRef || !status) {
+    if (!customerName || !email || !phone || !address || !itemName || !price || !quantity || !total || !paymentRef || !status || !color || !size || !image) {
       return res.status(400).json({ success: false, message: 'Missing Required Details' });
     }
     
-    const order = new orderAModel({ customerName, email, phone, address, itemName, price, quantity, total, paymentRef, status });
+    const order = new orderAModel({ customerName, email, phone, address, itemName, price, quantity, total, paymentRef, status, color, size, image });
     await order.save();
 
-    return res.json({ success: true, message: "Order successfully created" });
+    return res.json({ success: true, message: "Order successfully created", data: order._id });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ success: false, message: error.message });
