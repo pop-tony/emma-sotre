@@ -6,6 +6,8 @@ const ordersShema = new mongoose.Schema({
     email: {type: String, required: true},
     message: {type: String, required: true},
     status: {type: String, default: "enquirery sent"},
+    oderNumber: {type: String, default: "#000"},
+    subject: {type: String, required: true},
 },{timestamps: true},)
 
 const consultModel = mongoose.models.emmaconsult || mongoose.model('emmaconsult', ordersShema);

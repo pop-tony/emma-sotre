@@ -16,6 +16,7 @@ export default function Footer() {
           <div className="flex flex-col gap-2">
             <a href="/shop" className="hover:text-rose-500">Shop All</a>
             <a href="/shop" className="hover:text-rose-500">New Arrivals</a>
+            <a href="/contact" className="hover:text-rose-500">Contact Us</a>
             <a href="/orders" className="hover:text-rose-500">Track Order</a>
           </div>
         </div>

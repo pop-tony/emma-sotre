@@ -13,6 +13,7 @@ import { Admin } from './pages/Admin'
 import OrderDetails from './pages/OrderDetails'
 import ProductDetails from './pages/ProductDetails' // new
 import Lookbook from './components/Lookbook'
+import InquiryPage from './pages/InquiryPage'
 
 function AppContent() {
   return (
@@ -28,6 +29,7 @@ function AppContent() {
           <Route path='/orders' element={<Orders />} />
           <Route path='/admin' element={<Admin />} />
           <Route path='/order/:id' element={<OrderDetails />} />
+          <Route path='/contact' element={<InquiryPage />} />
         </Routes>
       </main>
       <Footer />

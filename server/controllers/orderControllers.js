@@ -22,17 +22,23 @@ export const createOrderA = async (req, res) => {
 
 export const createConsult = async (req, res) => {
   try {
-    const { name, email, phone, message } = req.body.orderData.customer;
+    const { name, email, phone, message, orderNumber, subject } = req.body.formData;
 
     // Validate required fields
     if (!name || !email || !phone || !message) {
       return res.status(400).json({ success: false, message: 'Missing Required Details' });
     }
 
-    const consult = new consultModel({name, email, phone, message});
-    await consult.save();
+    if (!orderNumber) {
+      const consult = new consultModel({name, email, phone, message, subject});
+      await consult.save();
+      return res.json({ success: true, message: "Inquirery Sent", data: consult._id });
+    }else{
+      const consult = new consultModel({name, email, phone, message, orderNumber, subject});
+      await consult.save();
+      return res.json({ success: true, message: "Inquirery Sent", data: consult._id });
+    }
 
-    return res.json({ success: true, message: "Inquirery Sent", data: consult._id });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ success: false, message: error.message });
