@@ -69,25 +69,25 @@ export const createOrder = async (req, res) => {
 }
 
 export const updateOrder = async (req, res) => {
-    let updatedOrder;
-    
-  try {
-    const { name, price, orderId, quantity, description, brand, color, buyer, address, number, city, email } = req.body;
+  let updatedOrder;
+  
+try {
+  const { orderId,status } = req.body;
 
-    updatedOrder = await orderModel.findByIdAndUpdate(orderId,
-        { name, price, orderId, quantity, description, brand, color, buyer, address, number, city, email },
-        { new: true });
-    
+  updatedOrder = await orderAModel.findByIdAndUpdate(orderId,
+      { status },
+      { new: true });
+  
 
-    if (!updatedOrder) {
-      return res.json({ success: false, message: 'Order not found' });
-    }
-
-    return res.json({ success: true, product: updatedOrder });
-  } catch (error) {
-    console.error(error);
-    return res.json({ success: false, message: 'Failed to update product' });
+  if (!updatedOrder) {
+    return res.json({ success: false, message: 'Order not found' });
   }
+
+  return res.json({ success: true, product: updatedOrder });
+} catch (error) {
+  console.error(error);
+  return res.json({ success: false, message: 'Failed to update order' });
+}
 }
 
 export const deleteOrder = async (req, res) => {
@@ -105,7 +105,7 @@ export const deleteOrder = async (req, res) => {
 
 export const getOrderData = async (req, res) => {
   try {
-    const orders = await orderModel.find();
+    const orders = await orderAModel.find();
 
     if (!orders.length) {
       return res.json({ success: false, message: "No orders found!" });
