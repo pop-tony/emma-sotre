@@ -129,7 +129,7 @@ export const allProducts = [
     {
       id: 'bottom-04',
       name: 'Linen Drawstring Shorts',
-      price: 180,
+      price: 1,
       salePrice: null,
       images: [
         'https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=800',
@@ -176,7 +176,7 @@ export const allProducts = [
     {
       id: 'dress-04',
       name: 'Maxi Shirt Dress',
-      price: 410,
+      price: 1,
       salePrice: null,
       images: [
         'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=800',
@@ -270,7 +270,7 @@ export const allProducts = [
     {
       id: 'acc-03',
       name: 'Silk Scarf',
-      price: 150,
+      price: 1,
       salePrice: 110,
       images: [
         'https://images.unsplash.com/photo-1582142838535-b7b9282fbac8?w=800',
@@ -317,7 +317,7 @@ export const allProducts = [
     {
       id: 'top-05',
       name: 'Mesh Long Sleeve',
-      price: 140,
+      price: 1,
       salePrice: 70,
       images: [
         'https://images.unsplash.com/photo-1618354691792-d1d42acfd860?w=800',
